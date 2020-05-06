@@ -1,0 +1,41 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Installs"
+###
+# Installs
+###
+install-juicier(){
+  echo ""
+}
+
+install-black-hat-security-services-for-hackathon(){
+  brew install nmap john netcat openssh telnet git curl wget
+  echo ""
+
+}
+
+
+###
+# Unstalls
+###
+uninstall-black-hat-security-services-for-hackathon(){
+  brew uninstall nmap john netcat telnet
+}
+
+
+#####
+# Version Changers
+#####
+java8() {
+  export JAVA_HOME=/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home/
+}
+
+java11() {
+  export JAVA_HOME=/Library/Java/JavaVirtualMachines/openjdk-11.0.2.jdk/Contents/Home/
+}
+
+java(){
+  sudo ln -sfn /usr/local/opt/openjdk@11/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk-11.jdk
+  export PATH="/usr/local/opt/openjdk@11/bin:$PATH"
+}
+

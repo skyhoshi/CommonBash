@@ -1,0 +1,60 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading bash_Juicier"
+
+update-juicier(){
+  echo ""
+}
+
+####
+# Juicier
+####
+setup-juicier() {
+  echo "More information can be found at https://tangocard.atlassian.net/wiki/spaces/DEV/pages/559415486/Juicier+Manual"
+  cd $TANGO_DIR
+  git clone git@repo-gitlab.tangocard.com:engineering/seattle/juicier.git
+  pip3 install virtualenv
+  cd juicier
+  source ./venv/bin/activate
+}
+
+
+enable-juicier-env() {
+  cd ~/tangocard/juicier
+  #assume that the environment has already been setup
+  # virtualenv -p python3.7 venv
+  source ./venv/bin/activate
+}
+
+disable-juicier-env(){
+  deactivate
+}
+
+#####
+# 
+#####
+down-ordering-localdev-frontend(){
+    echo "Juicier down Core, Rewards-Genius, Bulk Order Processing Service, Async Order Processor, Email Service, Elastic Search Sync Service"
+    juicier infra down core
+    juicier infra down portal-backend
+    juicier infra down bos
+    juicier infra down async-order-processor
+    juicier infra down emailservice
+    juicier infra down elasticsearch
+    juicier infra down elasticsearch-sync
+    docker container prune
+    docker images prune
+    docker volume prune
+}
+up-ordering-localdev-frontend(){
+  echo "Juicier Up Core, Rewards-Genius, Bulk Order Processing Service, Async Order Processor, Email Service, Elastic Search Sync Service"
+  juicier infra up core
+  juicier infra up portal-backend
+  juicier infra up bos
+  juicier infra up async-order-processor
+  juicier infra up emailservice
+  juicier infra up elasticsearch
+  juicier infra up report-manager
+  juicier infra up elasticsearch-sync
+}
+

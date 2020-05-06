@@ -1,0 +1,225 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Docker"
+############################
+## Docker
+############################
+
+docker-portal-clean() {
+  #docker-compose -f ~/tangocard/application-compositions/portal/docker-compose.yml down -v
+  docker-compose -f ~/tangocard/application-compositions/portal/docker-compose.yml up -d
+}
+
+docker-portal-up() {
+  docker-compose -f ~/tangocard/application-compositions/portal/docker-compose.yml up -d
+}
+
+login-jfrog() {
+  docker login tangodev-tcdockervirtual.jfrog.io
+}
+
+docker-compose-build-localdev-build-appliction-compositions-core() {
+  docker-compose -f $HOME/tangocard/application-compositions/core/docker-compose.yml up -d
+}
+
+
+
+docker-run-localdev-build-core() {
+  cd $HOME/tangocard/core
+  mvn clean package -Dmaven.test.skip=true -DskipTests &&
+    docker rm -f core
+  docker run --name core \
+    -d -p 28080:28080 -p 28000:8000 \
+    -e 'spring.profiles.active=dev' \
+    -e configserver.host=172.17.0.1 \
+    -e configserver.port='8888' \
+    -e configserver.user='config_user' \
+    -e configserver.password='soopersecurepeedub' \
+    --add-host abrazo-core-db.private.tangocard.com:172.17.0.1 \
+    --add-host core-redis.private.tangocard.com:172.17.0.1 \
+    --add-host rabbit.private.tangocard.com:172.17.0.1 \
+    --add-host goldrush.private.tangocard.com:172.16.222.111 \
+    --add-host lzbackend.private.tangocard.com:172.16.222.111 \
+    --add-host fraudvelocity.private.tangocard.com:172.16.222.111 \
+    tangocard/core &&
+    docker logs -f core
+}
+
+docker-set-memory-limits() {
+  docker update core -m 4g --memory-swap 4g
+  docker update config-backend -m 1g --memory-swap 1g
+}
+
+docker-run-localdev-orderprocessing() {
+  # bulk-order-frontend
+  # asyncorder
+  # email
+  docker
+}
+
+docker-run-localdev-juicier-admintools() {
+  echo "juicier infra up admintools"
+  juicier infra up admintools
+  echo "docker cp -a /Users/marcus.kern/tangocard/admin-tools/.split admin-tools:/.split"
+  docker cp -a /Users/marcus.kern/tangocard/admin-tools/.split admin-tools:/.split
+}
+
+docker-fix-portal(){
+  docker-run-localdev-juicier-portal
+}
+
+docker-run-localdev-juicier-portal() {
+  echo "docker cp -a $HOME/tangocard/rewards-genius-frontend/.split portal-frontend:/.split"
+  docker cp -a $HOME/tangocard/rewards-genius-frontend/.split portal-frontend:/.split
+}
+
+docker-watch-core() {
+  docker log -f core
+}
+# docker pull tangodev-tcdockervirtual.jfrog.io/tc-jdk11:latest
+
+docker-start-db() {
+  s=$(docker ps -a --filter ancestor=postgres:9.6.1 --filter ancestor=postgres:9.6.11 --format " {{.Names}}" | xargs)
+  [[ -n $s ]] && docker start $s
+}
+
+docker-stop-db() {
+  s=$(docker ps -a --filter ancestor=postgres:9.6.1 --filter ancestor=postgres:9.6.11 --format " {{.Names}}" | xargs)
+  [[ -n $s ]] && docker stop $s
+}
+
+docker-start-prereq() {
+  docker start cluster-rabbitmq
+  docker start cluster-redis
+  docker start cluster-elasticsearch
+  docker start config-frontend
+  docker start config-backend
+}
+
+docker-up-portal() {
+  juicier infra up cluster-rabbitmq
+  juicier infra up cluster-redis
+  juicier infra up cluster-elasticsearch
+  juicier infra up async-order-processor
+  juicier infra up bulk-order-frontend
+  juicier infra up bulk-order-backend
+  juicier infra up core
+  juicier infra up portal-frontend
+}
+
+docker-down-portal() {
+  juicier infra down cluster-rabbitmq
+  juicier infra down cluster-redis
+  juicier infra down cluster-elasticsearch
+  juicier infra down async-order-processor
+  juicier infra down bulk-order-frontend
+  juicier infra down bulk-order-backend
+  juicier infra down core
+  juicier infra down portal-frontend
+}
+
+
+docker-restart(){
+  docker-stop-all
+  docker-start-all
+}
+
+docker-ps(){
+  #docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.ID}}"
+  docker ps -a
+}
+
+stop-via-juicier(){
+  echo "Stoping $1 via Juicier"  
+  juicier infra stop $1
+}
+
+start-via-juicier(){
+  echo "Stoping $1 via Juicier"  
+  juicier infra stop $1
+}
+
+docker-stop-portal() {
+  echo "stop via jucier -portal-backend"
+  stop-via-juicier portal-backend
+  stop-via-juicier portal-frontend
+  stop-via-juicier portal-db
+}
+
+docker-stop-portal-frontback(){
+  docker stop portal-backend
+  docker stop portal-frontend
+}
+
+docker-cleanup(){
+  docker images prune
+  Y
+  docker volume prune
+  Y
+  docker container prune
+  Y
+}
+
+docker-reset-all() {
+  docker-reset-core
+  docker-reset-portal
+  docker-reset-ordersearching
+  docker-reset-orderprocessing
+}
+
+docker-reset-core(){
+  juicier infra down core
+  docker-cleanup
+  juicier infra up core
+}
+
+docker-reset-portal(){
+  juicier infra down portal-frontend
+  docker-cleanup
+  juicier infra up portal-frontend
+}
+
+docker-reset-ordersearching(){
+  juicier infra down elasticsearch
+  docker-cleanup
+  juicier infra up elasticsearch
+}
+
+docker-reset-orderprocessing(){
+  docker stop bulk-order-backend bulk-order-db
+  docker stop async-order-processor
+  juicier infra down async-order-processor
+  juicier infra down bulk-order-frontend
+  juicier infra down bulk-order-backend
+  docker-cleanup
+  juicier infra up async-order-processor
+  juicier infra up bulk-order-frontend
+  juicier infra up bulk-order-backend  
+}
+# docker-start-all() {
+#   echo "Starting all Docker Containers"
+#   docker start $(docker ps -qa)
+# }
+
+docker-start-all(){
+  s=$(docker ps -a --format " {{.Names}}" | xargs)
+  [[ -n $s ]] && docker start $s
+}
+
+# docker-stop-all() {
+#   echo "Stoping All Docker Containers"
+#   docker stop $(docker ps -qa)
+# }
+
+docker-stop-all() {
+  s=$(docker ps -a --format " {{.Names}}" | xargs)
+  [[ -n $s ]] && docker stop $s
+}
+
+
+redis(){
+  docker run --rm --name redis-commander -d \
+-p 8081:8081 \
+rediscommander/redis-commander:latest
+open http://localhost:8081/
+}

@@ -1,0 +1,12 @@
+#!/usr/local/bin/bash
+echo "Loading Bash_Configs"
+############################
+##Open Service Configs
+############################
+open-docker-config() {
+  code $HOME/.docker/config.json
+}
+
+open-kube-config() {
+  code $HOME/.kube/config
+}

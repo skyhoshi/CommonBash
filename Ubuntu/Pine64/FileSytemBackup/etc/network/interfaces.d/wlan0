@@ -1,0 +1,6 @@
+allow-hotplug wlan0
+iface wlan0 inet dhcp
+wpa-ssid 1173B7
+# hexadecimal psk is encoded from a plaintext passphrase
+# "22ULACC318606"
+wpa-psk 3232554C414343333138363036

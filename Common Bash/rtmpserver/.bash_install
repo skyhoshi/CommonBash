@@ -1,0 +1,32 @@
+echo "Loading ~/.bash/.bash_install"
+install-onedrive(){
+    sudo apt install libcurl4-openssl-dev git
+    sudo apt install libsqlite3-dev
+    sudo snap install --classic dmd && sudo snap install --classic dub
+}
+install-getssl(){
+    mkdir -p "$HOME/source/"
+    if [ ! -d "$HOME/source/getssl" ] ; then        
+        cd "$HOME/source/"
+        git clone https://github.com/srvrco/getssl.git    
+    fi
+}
+install-onedrive(){
+    sudo mkdir -p "/usr/src/onedrive/install"
+    cd "/usr/src/onedrive/install"
+    sudo apt install build-essential
+    sudo apt install libcurl4-openssl-dev
+    sudo apt install libsqlite3-dev
+    sudo apt install pkg-config
+    curl -fsS https://dlang.org/install.sh | bash -s dmd
+    
+    sudo apt install libnotify-dev
+
+    source ~/dlang/dmd-2.088.0/activate
+    #git clone https://github.com/abraunegg/onedrive.git
+    #cd onedrive
+    ./configure
+    make clean; make;
+    sudo make install
+    source ~/dlang/dmd-2.088.0/deactivate
+}

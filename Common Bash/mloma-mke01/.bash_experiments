@@ -1,0 +1,14 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Experiements"
+
+test() {
+  echo $TANGO_DIR
+  echo
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    #eval "ITEM=\${$REPOITEM[*]}"
+    eval "typeset -n ITEM=$REPOITEM"
+    #echo  ${REPOITEM[*]} $ITEM
+    echo ${ITEM["Name"]}
+  done
+}

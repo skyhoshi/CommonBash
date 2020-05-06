@@ -1,0 +1,30 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Finder"
+############################
+#Finder Related
+############################
+goto-tango() {
+  cd ~/tangocard/
+}
+goto-rgbe() {
+  cd ~/tangocard/rewards-genius-backend
+}
+
+goto-rgfe() {
+  cd ~/tangocard/rewards-genius-frontend
+}
+
+goto-rlfe() {
+  cd ~/tangocard/reward-link-frontend
+}
+goto-rlbe() {
+  cd ~/tangocard/reward-link-backend
+}
+
+goto-compose() {
+  cd ~/tangocard/application-compositions/$1
+}
+goto-jetbrains-applications(){
+  cd  $HOME/Library/Application Support/JetBrains/Toolbox/apps
+}

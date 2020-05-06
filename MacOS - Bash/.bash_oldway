@@ -1,0 +1,385 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Oldway"
+
+############################
+## TANGO Related
+############################
+TANGODIR_WITHOUT=tangocard
+TANGO_DIR=$HOME/tangocard
+
+typeset -A abrazoemailservice
+abrazoemailservice=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/abrazo-email-service.git"
+  [Name]="abrazo-email-service"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="emailservice"
+  [JAVAVERSION]=-1
+)
+typeset -A admintools
+admintools=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/admin-tools.git"
+  [Name]="admin-tools"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="admin-tools"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A applicationcompositions
+applicationcompositions=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/application-compositions.git"
+  [Name]="application-compositions"
+  [buildType]="NONE"
+  [dockerComposeFolder]="NONE"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A asyncorderprocessor
+asyncorderprocessor=(
+  [repo]="gitlab.tangocard.com:engineering/boise/async-order-processor.git"
+  [Name]="async-order-processor"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="async-order-processor"
+  [JAVAVERSION]=8
+)
+#
+typeset -A bulkorderservice
+bulkorderservice=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/bulkorderservice.git"
+  [Name]="bulkorderservice"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="BUILD"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A configstoragefrontend
+configstoragefrontend=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/config-storage-frontend.git"
+  [Name]="config-storage-frontend"
+  [buildType]="NONE"
+  [dockerComposeFolder]="config-frontend"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A configstoragebackend
+configstoragebackend=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/config-storage-backend.git"
+  [Name]="config-storage-backend"
+  [buildType]="NONE"
+  [dockerComposeFolder]="config-backend"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A core
+core=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/core.git"
+  [Name]="core"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="core"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A rewardlinkbackend
+rewardlinkbackend=(
+  [repo]="gitlab.tangocard.com:engineering/boise/reward-link-backend.git"
+  [Name]="reward-link-backend"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="rewardlink"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A rewardlinkfrontend
+rewardlinkfrontend=(
+  [repo]="gitlab.tangocard.com:engineering/boise/reward-link-frontend.git"
+  [Name]="reward-link-frontend"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="rewardlink"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A rewardlinkstaticfrontend
+rewardlinkstaticfrontend=(
+  [repo]="gitlab.tangocard.com:engineering/boise/reward-link-static-frontend.git"
+  [Name]="reward-link-static-frontend"
+  [buildType]="NPM_PROJECTS"
+  [dockerComposeFolder]="YARN"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A rewardsgeniusbackend
+rewardsgeniusbackend=(
+  [repo]="gitlab.tangocard.com:engineering/boise/rewards-genius-backend.git"
+  [Name]="rewards-genius-backend"
+  [buildType]="MVN_PROJECTS"
+  [dockerComposeFolder]="portal"
+  [JAVAVERSION]=-1
+)
+
+typeset -A rewardsgeniusfrontend
+rewardsgeniusfrontend=(
+  [repo]="gitlab.tangocard.com:engineering/boise/rewards-genius-frontend.git"
+  [Name]="rewards-genius-frontend"
+  [buildType]="BOTH"
+  [dockerComposeFolder]="portal"
+  [JAVAVERSION]=-1
+)
+#
+typeset -A selfserveconfigserver
+selfserveconfigserver=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/self-serve-config-server.git"
+  [Name]="self-serve-config-server"
+  [buildType]="NONE"
+  [dockerComposeFolder]="PYTHON"
+  [JAVAVERSION]=-1
+)
+
+typeset -A juicier
+juicier=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/juicier.git"
+  [Name]="juicier"
+  [buildType]="NONE"
+  [dockerComposeFolder]=""
+  [JAVAVERSION]=-1
+)
+typeset -A template
+template=(
+  [repo]="gitlab.tangocard.com:engineering/seattle/juicier.git"
+  [Name]="juicier"
+  [buildType]="NONE"
+  [dockerComposeFolder]=""
+  [JAVAVERSION]=-1
+)
+
+#
+typeset -A LISTREPOS
+LISTREPOS=(
+  [abrazoemailservice]=${abrazoemailservice[*]}
+  [admintools]=${admintools[*]}
+  [applicationcompositions]=${applicationcompositions[*]}
+  [asyncorderprocessor]=${asyncorderprocessor[*]}
+  [bulkorderservice]=${bulkorderservice[*]}
+  [configstoragefrontend]=${configstoragefrontend[*]}
+  [configstoragebackend]=${configstoragebackend[*]}
+  [core]=${core[*]}
+  [rewardlinkbackend]=${rewardlinkbackend[*]}
+  [rewardlinkfrontend]=${rewardlinkfrontend[*]}
+  [rewardlinkstaticfrontend]=${rewardlinkstaticfrontend[*]}
+  [rewardsgeniusbackend]=${rewardsgeniusbackend[*]}
+  [rewardsgeniusfrontend]=${rewardsgeniusfrontend[*]}
+  [selfserveconfigserver]=${selfserveconfigserver[*]}
+  [juicier]=${juicier[*]}
+  [template]=${template[*]}
+)
+
+typeset -a REPOSNAMES
+REPOSNAMES=(
+  abrazoemailservice
+  admintools
+  applicationcompositions
+  asyncorderprocessor
+  bulkorderservice
+  configstoragefrontend
+  configstoragebackend
+  core
+  rewardlinkbackend
+  rewardlinkfrontend
+  rewardlinkstaticfrontend
+  rewardsgeniusbackend
+  rewardsgeniusfrontend
+  selfserveconfigserver
+  juicier
+  #template
+)
+############################
+## Tango helper Methods
+############################
+
+
+listAllReposAndSettings() {
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    eval "ITEM=\${$REPOITEM[*]}"
+    echo ${REPOITEM[*]} $ITEM
+  done
+
+}
+### This method will go through and download REPOs based on the REPOSNAMES and those Repos in the
+### list should have a associative array of the same name with the properties filled out in it
+recreate-tangocard() {
+  if [ -d "$TANGO_DIR" ]; then
+    # Control will enter here if $DIRECTORY exists.
+    echo "Directory Exists"
+  else
+    mkdir -p $TANGO_DIR
+  fi
+  cd $TANGO_DIR
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    eval "typeset -n TCITEM=$REPOITEM"
+    REPO=${TCITEM[repo]}
+    REPODIRECTORY=${TCITEM[Name]}
+    REPOBUILDTYPE=${TCITEM[buildType]}
+    #echo "Build Type: " $REPOBUILDTYPE "Directory: " $REPODIRECTORY "Repo: " $REPO
+    #  ################################################################################
+    #  ## Clone repositories
+    #  ################################################################################
+    cd $TANGO_DIR
+    if [ -d "${REPODIRECTORY}" ]; then
+      echo "Directory Exists Git downloaded"
+    else
+      mkdir -p ${REPODIRECTORY}
+      git clone git@repo-${REPO}
+    fi
+    cd "$TANGO_DIR/$REPODIRECTORY"
+    #  ################################################################################
+    #  ## Clean and Pull : For Exsting Repos
+    #  ################################################################################
+    git checkout .
+    git pull
+    #  ################################################################################
+    #  ## Build JS And MAVEN projects
+    #  ################################################################################
+    if [ $REPOBUILDTYPE == "BOTH" ]; then
+      yarn install
+      yarn build
+      mvn clean install -Dmaven.test.skip=true -DskipTests
+    elif [ $REPOBUILDTYPE == "NPM_PROJECTS" ]; then
+      #  ################################################################################
+      #  ## Build js projects
+      #  ################################################################################
+      yarn install
+      yarn build
+    elif [ $REPOBUILDTYPE == "MVN_PROJECTS" ]; then
+      #  ################################################################################
+      #  ## Build maven projects
+      #  ################################################################################
+      mvn clean install -Dmaven.test.skip=true -DskipTests
+    fi
+  done
+  echo Complete
+}
+## git Related
+remove-changes() {
+  ### removes all changes back to HEAD checkin.
+  read -r -p "Are you sure? [y/N] " response
+  if [[ "$response" =~ ^([yY][eE][sS]|[yY])+$ ]]; then
+    git checkout -- .
+  else
+    echo ALL CHANGES RETAINED!!!
+  fi
+}
+reset-tangocard() {
+  TANGO_DIR=$HOME/tangocard
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    cd $TANGO_DIR
+    eval "typeset -n TCITEM=$REPOITEM"
+    REPO=${TCITEM[repo]}
+    REPODIRECTORY=${TCITEM[Name]}
+    REPOBUILDTYPE=${TCITEM[buildType]}
+    #echo "Build Type: " $REPOBUILDTYPE "Directory: " $REPODIRECTORY "Repo: " $REPO
+    #  ################################################################################
+    #  ## Docker Compose
+    #  ################################################################################
+    cd "$REPODIRECTORY"
+    #echo $REPODIRECTORY
+    git checkout -- .
+    cd $TANGO_DIR
+  done
+}
+
+update-tangocard() {
+  TANGO_DIR=$HOME/tangocard
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    cd $TANGO_DIR
+    eval "typeset -n TCITEM=$REPOITEM"
+    REPO=${TCITEM[repo]}
+    REPODIRECTORY=${TCITEM[Name]}
+    REPOBUILDTYPE=${TCITEM[buildType]}
+    #echo "Build Type: " $REPOBUILDTYPE "Directory: " $REPODIRECTORY "Repo: " $REPO
+    #  ################################################################################
+    #  ## Docker Compose
+    #  ################################################################################
+    cd "$TANGO_DIR/$REPODIRECTORY"
+    git pull
+  done
+}
+deploy-Docker() {
+  #TANGO_DIR=$HOME/tangocard
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    cd $TANGO_DIR
+    eval "typeset -n TCITEM=$REPOITEM"
+    REPO=${TCITEM[repo]}
+    REPODIRECTORY=${TCITEM[Name]}
+    REPOBUILDTYPE=${TCITEM[buildType]}
+    DOCKERCOMPOSEFOLDER=${TCITEM[dockerComposeFolder]}
+    if [ $DOCKERCOMPOSEFOLDER != "" ]; then
+      if [ $DOCKERCOMPOSEFOLDER != "NONE" ]; then
+        #  ################################################################################
+        #  ## Docker Compose
+        #  ################################################################################
+        cd "$TANGO_DIR/application-compositions/$DOCKERCOMPOSEFOLDER"
+        docker-compose -f docker-compose.yml up -d
+      elif [ $DOCKERCOMPOSEFOLDER != "BUILD" ]; then
+        cd "$TANGO_DIR/$REPODIRECTORY"
+        if [ $REPOBUILDTYPE == "BOTH" ]; then
+          yarn install
+          yarn build
+          mvn clean install -Dmaven.test.skip=true -DskipTests
+        elif [ $REPOBUILDTYPE == "NPM_PROJECTS" ]; then
+          #  ################################################################################
+          #  ## Build js projects
+          #  ################################################################################
+          yarn install
+          yarn build
+        elif [ $REPOBUILDTYPE == "MVN_PROJECTS" ]; then
+          #  ################################################################################
+          #  ## Build maven projects
+          #  ################################################################################
+          mvn clean install -Dmaven.test.skip=true -DskipTests
+        fi
+        cd "$TANGO_DIR/application-compositions/$DOCKERCOMPOSEFOLDER"
+      fi
+    else
+      echo "Bash Script is missing this setting, please udpate your bash script and try again. "
+    fi
+  done
+}
+deploy-Docker() {
+  #TANGO_DIR=$HOME/tangocard
+  for REPOITEM in ${REPOSNAMES[@]}; do
+    cd $TANGO_DIR
+    eval "typeset -n TCITEM=$REPOITEM"
+    REPO=${TCITEM[repo]}
+    REPODIRECTORY=${TCITEM[Name]}
+    REPOBUILDTYPE=${TCITEM[buildType]}
+    DOCKERCOMPOSEFOLDER=${TCITEM[dockerComposeFolder]}
+    if [ $DOCKERCOMPOSEFOLDER != "" ]; then
+      if [ $DOCKERCOMPOSEFOLDER != "NONE" ]; then
+        #  ################################################################################
+        #  ## Docker Compose
+        #  ################################################################################
+        cd "$TANGO_DIR/application-compositions/$DOCKERCOMPOSEFOLDER"
+        docker-compose -f docker-compose.yml up -d
+      elif [ $DOCKERCOMPOSEFOLDER != "BUILD" ]; then
+        cd "$TANGO_DIR/$REPODIRECTORY"
+        if [ $REPOBUILDTYPE == "BOTH" ]; then
+          yarn install
+          yarn build
+          mvn clean install -Dmaven.test.skip=true -DskipTests
+        elif [ $REPOBUILDTYPE == "NPM_PROJECTS" ]; then
+          #  ################################################################################
+          #  ## Build js projects
+          #  ################################################################################
+          yarn install
+          yarn build
+        elif [ $REPOBUILDTYPE == "MVN_PROJECTS" ]; then
+          #  ################################################################################
+          #  ## Build maven projects
+          #  ################################################################################
+          mvn clean install -Dmaven.test.skip=true -DskipTests
+        fi
+        cd "$TANGO_DIR/application-compositions/$DOCKERCOMPOSEFOLDER"
+      fi
+    else
+      echo "Bash Script is missing this setting, please udpate your bash script and try again. "
+    fi
+  done
+}

@@ -1,0 +1,46 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Project_Shortcuts"
+##  Build Related
+build-local() {
+  mvn clean package -Dmaven.test.skip=true -DskipTests
+}
+
+build-local-notest() {
+  mvn clean package -Dmaven.test.skip=true -DskipTests
+}
+############################
+## Skittles Configuration Server
+############################
+skittles-helper() {
+  cd ~/tangocard/self-serve-config-server/
+  python3 self_serve_runner.py $1
+  cd -
+}
+skittles-helper-frontend() {
+  cd ~/tangocard/self-serve-config-server/
+  python3 self_serve_runner.py frontend
+  cd -
+}
+skittles-helper-backend() {
+  cd ~/tangocard/self-serve-config-server/
+  python3 self_serve_runner.py backend
+  cd -
+}
+skittles-helper-purge() {
+  cd ~/tangocard/self-serve-config-server/
+  python3 self_serve_runner.py purge
+  cd -
+}
+skittles-helper-setup() {
+  cd ~/tangocard/self-serve-config-server/
+  python3 self_serve_runner.py setup
+  cd -
+}
+skittles-awaken() {
+  skittles-helper frontend && skittles-helper backend
+}
+skittles-confighelper() {
+  python3 config-helper.py
+}
+

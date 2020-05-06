@@ -1,0 +1,6 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+#me="$(basename "$(test -L "$0" && readlink "$0" || echo "$0")")"
+echo "Loading Bash_Autocompletes"
+[ -f $(brew --prefix)/etc/bash_completion ] && . $(brew --prefix)/etc/bash_completion
+eval "$(_JUICIER_COMPLETE=source juicier)"

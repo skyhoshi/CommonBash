@@ -1,0 +1,24 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+export PATH="/usr/local/opt/qt/bin:$PATH"
+export PATH="/usr/local/opt/openssl@1.1/bin:$PATH"
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export PATH="/usr/local/opt/qt/bin:$PATH"
+export HOMEBREW_CASK_OPTS="--appdir=/Applications " #--caskroom=/usr/local/Caskroom
+export CONFIG_PASS=soopersecurepeedub
+export LOGGING_FLAG=DEBUG
+export PKG_CONFIG_PATH="/usr/local/opt/openssl@1.1/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/opt/readline/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/opt/sqlite/lib/pkgconfig"
+export PKG_CONFIG_PATH="/usr/local/opt/qt/lib/pkgconfig"
+export LDFLAGS="-L/usr/local/opt/libffi/lib"
+export LDFLAGS="-L/usr/local/opt/openssl@1.1/lib"
+export LDFLAGS="-L/usr/local/opt/readline/lib"
+export LDFLAGS="-L/usr/local/opt/qt/lib"
+export LDFLAGS="-L/usr/local/opt/sqlite/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl@1.1/include"
+export CPPFLAGS="-I/usr/local/opt/readline/include"
+export CPPFLAGS="-I/usr/local/opt/sqlite/include"
+export CPPFLAGS="-I/usr/local/opt/qt/include"
+
+

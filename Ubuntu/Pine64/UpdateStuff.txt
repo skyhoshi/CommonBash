@@ -1,0 +1,16 @@
+pine64@homemanager001:~$ apt list --upgradable
+Listing... Done
+bsdutils/xenial-updates 1:2.27.1-6ubuntu3.3 arm64 [upgradable from: 1:2.27.1-6ubuntu3.2]
+coreutils/xenial-updates 8.25-2ubuntu3~16.04 arm64 [upgradable from: 8.25-2ubuntu2]
+libblkid1/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+libdns-export162/xenial-security,xenial-updates 1:9.10.3.dfsg.P4-8ubuntu1.7 arm64 [upgradable from: 1:9.10.3.dfsg.P4-8ubuntu1.6]
+libfdisk1/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+libgcrypt20/xenial-security,xenial-updates 1.6.5-2ubuntu0.3 arm64 [upgradable from: 1.6.5-2ubuntu0.2]
+libisc-export160/xenial-security,xenial-updates 1:9.10.3.dfsg.P4-8ubuntu1.7 arm64 [upgradable from: 1:9.10.3.dfsg.P4-8ubuntu1.6]
+libmount1/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+libsmartcols1/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+libuuid1/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+linux-libc-dev/xenial-security,xenial-updates 4.4.0-83.106 arm64 [upgradable from: 4.4.0-81.104]
+mount/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+util-linux/xenial-updates 2.27.1-6ubuntu3.3 arm64 [upgradable from: 2.27.1-6ubuntu3.2]
+pine64@homemanager001:~$

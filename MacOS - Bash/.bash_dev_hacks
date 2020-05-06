@@ -1,0 +1,46 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Dev_Hacks"
+patch-core-fraud() {
+  # Patch to disable fraud checks
+  cd $HOME/tangocard/core
+  git apply $HOME/Box/Home/localdev-patches/core-disable-fraud-checks.patch
+  git update-index --assume-unchanged src/main/java/com/tangocard/core/buffer/BufferInventoryService.java
+  git update-index --assume-unchanged src/main/java/com/tangocard/core/order/manualreview/FraudViolationService.java
+  git update-index --assume-unchanged src/main/java/com/tangocard/core/order/manualreview/OrderViolationCheckerService.java
+}
+
+create-orders(){
+  juicier api platform-order-ws-api place-order -p 999997 -c qatestplat2cust2id -a qatestplat2cust2acct2id -se false -u U999996  -n 10
+}
+
+rg-webpack-fix(){
+  echo "/Users/marcus.kern/tangocard/rewards-genius-frontend/src/main/webapp/node_modules/@vue/cli-service/webpack.config.js"
+}
+
+patch-elasticsearch(){
+  cd $HOME/tangocard/juicier-resources/application-compositions/shared-utilities; docker-compose -f legacy-db.docker-compose.yml up -d
+}
+
+admintools-fix(){
+  echo "If you do run admintools via IDE and microservices via docker you'll need to adjust the yarn server ports:
+zuul.routes.admincatalog-dev.url = http://admincatalog.private.tangocard.com:9232"
+}
+###
+#
+###
+
+fix-core-db-startup(){
+  docker cp ~/tangocard/application-compositions/core/db-init.sh core-db:/db-init.sh
+  docker exec core-db chmod 777 ./db-init.sh
+  docker exec core-db /bin/bash ./db-init.sh
+}
+
+set-postgres-login() {
+  grep postgres ${USER_HOME}/.pgpass >/dev/null 2>&1 || {
+    echo '*:*:*:postgres:abc123456' >>${USER_HOME}/.pgpass
+  }
+}
+
+
+

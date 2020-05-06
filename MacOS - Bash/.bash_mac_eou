@@ -1,0 +1,165 @@
+#!/usr/local/bin/bash
+# Bash 4 / ksh93
+echo "Loading Bash_Mac_EOU - Extra O soemthigns U somethings"
+update-wallpapers() {
+  ln -Fs /Users/marcus.kern/OneDrive/Pictures/Wallpaper /Users/marcus.kern/Pictures/Wallpaper
+}
+
+update-jet-toolbox(){
+  ln -Fs $HOME/Library/Application Support/JetBrains/Toolbox/apps /Applications/Jetbrains/apps
+  ln -Fs ~/Applications/Chrome\ Apps.localized/ /Applications/ChromeApps
+  ln -Fs ~/Applications/JetBrains\ Toolbox/ /Applications/JetbrainsToolbox
+}
+
+update-profile-config-folders() {
+#  rm $HOME/.abstract
+#  rm $HOME/.android
+#  rm $HOME/.aspnet
+#  rm $HOME/.aws
+#  rm $HOME/.bash_sessions
+#  rm $HOME/.cache
+#  rm $HOME/.cmake
+#  rm $HOME/.config
+#  rm $HOME/.cups
+#  rm $HOME/.docker
+#  rm $HOME/.dotnet
+#  rm $HOME/.freerdp
+#  rm $HOME/.gradle
+#  rm $HOME/.IdentityService
+#  rm $HOME/.iterm2
+#  rm $HOME/.juicier
+#  rm $HOME/.kube
+#  rm $HOME/.local
+#  rm $HOME/.lpass
+#  rm $HOME/.m2
+#  rm $HOME/.mono
+#  rm $HOME/.node-gyp
+#  rm $HOME/.npm
+#  rm $HOME/.nuget
+#  rm $HOME/.oracle_jre_usage
+#  rm $HOME/.pip
+#  rm $HOME/.pylint.d
+rm -dfRv $HOME/.repositories/*
+rmdir $HOME/.repositories
+#  rm $HOME/.sdl
+#  rm $HOME/.ssh
+#  rm $HOME/.subversion
+#  rm $HOME/.swt
+#  rm $HOME/.templateengine
+#  rm $HOME/.tooling
+#  rm $HOME/.vnc
+#  rm $HOME/.vs-kubernetes
+#  rm $HOME/.vscode
+#  rm $HOME/.vscode-cpptools
+#  rm $HOME/.vsts
+#  
+#  ln -Fs $HOME/Box/Home/profileconfig/.abstract			$HOME/.abstract
+#  ln -Fs $HOME/Box/Home/profileconfig/.android			$HOME/.android
+#  ln -Fs $HOME/Box/Home/profileconfig/.aspnet				$HOME/.aspnet
+#  ln -Fs $HOME/Box/Home/profileconfig/.aws				$HOME/.aws
+#  ln -Fs $HOME/Box/Home/profileconfig/.bash_sessions		$HOME/.bash_sessions
+#  ln -Fs $HOME/Box/Home/profileconfig/.cache				$HOME/.cache
+#  ln -Fs $HOME/Box/Home/profileconfig/.cmake				$HOME/.cmake
+#  ln -Fs $HOME/Box/Home/profileconfig/.config				$HOME/.config
+#  ln -Fs $HOME/Box/Home/profileconfig/.cups				$HOME/.cups
+#  ln -Fs $HOME/Box/Home/profileconfig/.docker				$HOME/.docker
+#  ln -Fs $HOME/Box/Home/profileconfig/.dotnet				$HOME/.dotnet
+#  ln -Fs $HOME/Box/Home/profileconfig/.freerdp			$HOME/.freerdp
+#  ln -Fs $HOME/Box/Home/profileconfig/.gradle				$HOME/.gradle
+#  ln -Fs $HOME/Box/Home/profileconfig/.IdentityService	$HOME/.IdentityService
+#  ln -Fs $HOME/Box/Home/profileconfig/.iterm2				$HOME/.iterm2
+#  ln -Fs $HOME/Box/Home/profileconfig/.juicier			$HOME/.juicier
+#  ln -Fs $HOME/Box/Home/profileconfig/.kube				$HOME/.kube
+#  ln -Fs $HOME/Box/Home/profileconfig/.local				$HOME/.local
+#  ln -Fs $HOME/Box/Home/profileconfig/.lpass				$HOME/.lpass
+#  ln -Fs $HOME/Box/Home/profileconfig/.m2					$HOME/.m2
+#  ln -Fs $HOME/Box/Home/profileconfig/.mono				$HOME/.mono
+#  ln -Fs $HOME/Box/Home/profileconfig/.node-gyp			$HOME/.node-gyp
+#  ln -Fs $HOME/Box/Home/profileconfig/.npm				$HOME/.npm
+#  ln -Fs $HOME/Box/Home/profileconfig/.nuget				$HOME/.nuget
+#  ln -Fs $HOME/Box/Home/profileconfig/.oracle_jre_usage	$HOME/.oracle_jre_usage
+#  ln -Fs $HOME/Box/Home/profileconfig/.pip				$HOME/.pip
+#  ln -Fs $HOME/Box/Home/profileconfig/.pylint.d			$HOME/.pylint.d
+  
+#  ln -Fs $HOME/Box/Home/profileconfig/.sdl				$HOME/.sdl
+#  ln -Fs $HOME/Box/Home/profileconfig/.ssh				$HOME/.ssh
+#  ln -Fs $HOME/Box/Home/profileconfig/.subversion			$HOME/.subversion
+#  ln -Fs $HOME/Box/Home/profileconfig/.swt				$HOME/.swt
+#  ln -Fs $HOME/Box/Home/profileconfig/.templateengine		$HOME/.templateengine
+#  ln -Fs $HOME/Box/Home/profileconfig/.tooling			$HOME/.tooling
+#  ln -Fs $HOME/Box/Home/profileconfig/.vnc				$HOME/.vnc
+#  ln -Fs $HOME/Box/Home/profileconfig/.vs-kubernetes		$HOME/.vs-kubernetes
+#  ln -Fs $HOME/Box/Home/profileconfig/.vscode				$HOME/.vscode
+#  ln -Fs $HOME/Box/Home/profileconfig/.vscode-cpptools	$HOME/.vscode-cpptools
+#  ln -Fs $HOME/Box/Home/profileconfig/.vsts				$HOME/.vsts
+ln -Fs $HOME/Box/Home/.repositories $HOME/.repositories
+ln -Fs $HOME/Box/Home/.repositories/ $HOME/OneDrive/Profiles/ml-mkoma01/.repositories
+ln -Fs $HOME/OneDrive/Profiles/.repositories $HOME/Box/Home/.repositories/
+}
+
+update-filestore-box(){
+  sudo rm -rf $HOME/Documents
+  sudo ln -Fs $HOME/Box/Home/Documents $HOME/
+  sudo rm -rf $HOME/Desktop 
+  sudo ln -Fs $HOME/Box/Home/Desktop $HOME/
+  # sudo rm -rf $HOME/Box/IDE\ Settings\ Storage\ Folder/ $HOME/
+  # sudo ln -Fs $HOME/Box/IDE\ Settings\ Storage\ Folder/ $HOME/
+}
+
+update-bash-profile(){
+  rm $HOME/.bash_profile
+  rm $HOME/.bashrc
+  rm $HOME/.bash_history
+  ln -Fs $HOME/OneDrive/Scripts/bash/mloma-mke01/.bash_profile $HOME/.bash_profile
+  ln -Fs $HOME/OneDrive/Scripts/bash/mloma-mke01/.bashrc $HOME/.bashrc
+  ln -Fs $HOME/OneDrive/Scripts/bash/mloma-mke01/.bash_history $HOME/.bash_history
+  ln -Fs $HOME/OneDrive/Scripts/bash/mloma-mke01/.iterm2_shell_integration.bash $HOME/.iterm2_shell_integration.bash
+}
+
+update-git-config(){
+  ln -Fs /Users/marcus.kern/OneDrive/Scripts/git/.gitconfig $HOME/.gitconfig
+}
+
+reset-sound(){
+  sudo kill -9 `ps ax|grep 'coreaudio[a-z]' | awk '{print $1}'`
+}
+
+# .abstract
+# .android
+# .aspnet
+# .aws
+# .bash_sessions
+# .cache
+# .cmake
+# .config
+# .cups
+# .docker
+# .dotnet
+# .freerdp
+# .gradle
+# .IdentityService
+# .iterm2
+# .juicier
+# .kube
+# .local
+# .lpass
+# .m2
+# .mono
+# .node-gyp
+# .npm
+# .nuget
+# .oracle_jre_usage
+# .pip
+# .pylint.d
+# .repositories
+# .sdl
+# .ssh
+# .subversion
+# .swt
+# .templateengine
+# .tooling
+# .vnc
+# .vs-kubernetes
+# .vscode
+# .vscode-cpptools
+# .vsts

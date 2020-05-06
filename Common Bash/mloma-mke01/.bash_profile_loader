@@ -1,0 +1,20 @@
+#!/usr/local/bin/bash
+echo "Loading Bash_Profile_Loader"
+#ONEDRIVESCRIPTSBASH=$HOME/OneDrive/Scripts/bash
+[ -f $ONEDRIVESCRIPTSBASH/.bash_exports ] && . $ONEDRIVESCRIPTSBASH/.bash_exports
+[ -f $ONEDRIVESCRIPTSBASH/.bash_configs ] && . $ONEDRIVESCRIPTSBASH/.bash_configs
+[ -f $ONEDRIVESCRIPTSBASH/.bash_dev_hacks ] && . $ONEDRIVESCRIPTSBASH/.bash_dev_hacks
+[ -f $ONEDRIVESCRIPTSBASH/.bash_docker ] && . $ONEDRIVESCRIPTSBASH/.bash_docker
+[ -f $ONEDRIVESCRIPTSBASH/.bash_experiments ] && . $ONEDRIVESCRIPTSBASH/.bash_experiments
+[ -f $ONEDRIVESCRIPTSBASH/.bash_finder ] && . $ONEDRIVESCRIPTSBASH/.bash_finder
+[ -f $ONEDRIVESCRIPTSBASH/.bash_installs ] && . $ONEDRIVESCRIPTSBASH/.bash_installs
+[ -f $ONEDRIVESCRIPTSBASH/.bash_juicier ] && . $ONEDRIVESCRIPTSBASH/.bash_juicier
+[ -f $ONEDRIVESCRIPTSBASH/.bash_mac_eou ] && . $ONEDRIVESCRIPTSBASH/.bash_mac_eou
+[ -f $ONEDRIVESCRIPTSBASH/.bash_oldway ] && . $ONEDRIVESCRIPTSBASH/.bash_oldway
+[ -f $ONEDRIVESCRIPTSBASH/.bash_project_shortcuts ] && . $ONEDRIVESCRIPTSBASH/.bash_project_shortcuts
+[ -f $ONEDRIVESCRIPTSBASH/.bash_autocompletes ] && . $ONEDRIVESCRIPTSBASH/.bash_autocompletes
+# sleep 3
+# [ -f $ONEDRIVESCRIPTSBASH/.bash_ ] && . $ONEDRIVESCRIPTSBASH/.bash_
+# [ -f $ONEDRIVESCRIPTSBASH/.bash_ ] && . $ONEDRIVESCRIPTSBASH/.bash_
+# [ -f $ONEDRIVESCRIPTSBASH/.bash_ ] && . $ONEDRIVESCRIPTSBASH/.bash_
+

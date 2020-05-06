@@ -1,0 +1,1 @@
+ sudo mount -f G:\ /mnt/G
