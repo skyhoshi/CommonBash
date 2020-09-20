@@ -1,0 +1,83 @@
+#cloud-config
+
+# This is the user-data configuration file for cloud-init. By default this sets
+# up an initial user called "ubuntu" with password "ubuntu", which must be
+# changed at first login. However, many additional actions can be initiated on
+# first boot from this file. The cloud-init documentation has more details:
+#
+# https://cloudinit.readthedocs.io/
+#
+# Some additional examples are provided in comments below the default
+# configuration.
+
+# On first boot, set the (default) ubuntu user's password to "ubuntu" and
+# expire user passwords
+chpasswd:
+  expire: false
+  list:
+  - ubuntu:ubuntu
+
+# Enable password authentication with the SSH daemon
+ssh_pwauth: true
+
+## On first boot, use ssh-import-id to give the specific users SSH access to
+## the default user
+#ssh_import_id:
+#- lp:my_launchpad_username
+#- gh:my_github_username
+
+## Add users and groups to the system, and import keys with the ssh-import-id
+## utility
+groups:
+- robot: [robot]
+- robotics: [robot]
+- pi: [pi]
+#
+users:
+- default
+- name: controlsystemuser
+  gecos: Mr. Robot
+  homedir: /home/controlsystem
+  primary_group: robot
+  sudo:  ALL=(ALL) NOPASSWD:ALL
+  groups: [adm, pi, robotics, audio, cdrom, dialout, floppy, video, plugdev, dip, netdev]
+  ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDTFjLJeFJMm0LyK97Vmb5VEWs+GUqUFwo9cVTprVdLTS0GNK19vm2cUw1YuEgp8HcRuVFDaW7Lf0nZTJDsmzHeyAAni9SKoP2AEFu8vgIV9wmZCrJhUwnx9TKfMWZuG+RHjPeUDNRx9Yc/+BGmE5FUxGJwoFElrCVSivKwOVA8OhX31yJ3o1Y4DxvfQQxkH26sTwr2YyoTvMoWr2BFlt84hNjWmvGNic1+TItPt2REBiv82lIcV8BuljuzU1KVuEOmgmqk7iF4B0UdpXJaNS1IDMeoOhJ5yXV1bHhSiRwIjoCF0nFgHV8SRIqSAU8c54zmO7hu9sr9TBqhLhFHGS58UwFW7jfu4bmLKTdi/4TERHJRHWtDso6MooGouEjXsUfecjl5mzItZrH/8U+DoEjz4lV00Hne3UOd+6F8C6gmRApok/XUpbXZATCopwBoG8sXENNGq8Qo8fS82QeqMUDcfi9PsHzyx/wqLWDZ9ja+Ly70h1acEkq3UAViq+kUMmc= marcus@SKY-M3
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC6nQCV1Sbz940jkLdkZdm2Y9uWBIsFq9T+sRXp4E9BEcUp7MSPSXN8WKLqgNyN+ChkG84UN0dc4sj8OEQCr1fTo8yy5+GVbRQF0j55xEEoSBA5hyNAizzwxqieBdevIIJd4ENkN4O0o/8OOnBNvNjgaTYXeqy2bD/OQpkuGCsPHhoNlSGkOYXFO6qE8ek8FqTQQ+A4ZJzEuOEBKllY/79z8PqRpvTb5oRCwunkyvbx0I7JmdXsCcQ+WUe0t7pU//d6CeQWQAHzyGEXp4iFqeLTaKblFyhfcP11YEN2OfGc5ZiPiLBq1Wtoh5ScwFxvpYqSpeKTM8waRsaEbaA54gfR pi@OfficeDoorbell
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDzsupAp6Zq0OmLiWzzv4R3UvioTDBqRv+LoklkKGAMedfSZtyZcksQ8Bh5nJW9elkwkv89buqFHQTU0qhnQOKDR1Gf0psAPAihR00JEdvbGO6iynMXAZBbtFnR2y33znI/qzSvMIzZJA/iTCTJ96Vd9QZLel4GcjASzGwOV2L8g48+b1mO8yJEBvmUPz0NfELd90xSZPowBKbx2yiRi47JDJ+m92saffkGFQwYJuKx7JIL+WHYWjpFGjXfBH+PY/gdlSeYjp+/0XF5UUBmcMwg4o0inwNvWrRaMUqg777BKHSbBruttgoAXDHOEFUkc/S05B3+uUaAz/1rAUY8dus41P8JaHs0RZzEA9je8EqP9cRmCAS4j9sfXtSGE2cX6moBXvuHCTV8bfxSnBUaZdTO3kEPEusqmfO057fnCnEYo+UdrxGY4//B2Qx8/rRrgENLx4w3rdQZPI3PxWJymajl93N2yKVc1MZkMFGhl9k0kckKC6CwtZ+7irV6wVGvNM= marcus@SKY-M3
+  lock_passwd: false
+  passwd: Gvg/1FnzjBYgr5wH$K5zjXCGuYEy.NhDzJORmlzVihN6Pm6YxDoP8bP0MBFA
+
+## Update apt database and upgrade packages on first boot
+#package_update: true
+#package_upgrade: true
+
+## Install additional packages on first boot
+packages:
+- [libunwind8, gettext]
+#- pwgen
+#- pastebinit
+
+
+## Write arbitrary files to the file-system (including binaries!)
+write_files:
+- path: /usr/src/dotnetInstall/dotnetInstall.sh
+  content: |
+    wget https://download.visualstudio.microsoft.com/download/pr/60d21925-7f8f-4004-9afe-aebd041d2d4a/0db2946738642d7f88f71f7800522e8c/dotnet-runtime-3.1.0-linux-arm.tar.gz
+    sudo mkdir -p /usr/share/dotnet
+    sudo tar -xvf dotnet-runtime-3.1.0-linux-arm.tar.gz -C /usr/share/dotnet
+    sudo ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+  permissions: '0644'
+  owner: robotics:robotics
+#- encoding: gzip
+#  path: /usr/bin/hello
+#  content: !!binary |
+#    H4sIAIDb/U8C/1NW1E/KzNMvzuBKTc7IV8hIzcnJVyjPL8pJ4QIA6N+MVxsAAAA=
+#  owner: root:root
+#  permissions: '0755'
+
+## Run arbitrary commands at rc.local like time
+#runcmd:
+#- [ ls, -l, / ]
+#- [ sh, -xc, "echo $(date) ': hello world!'" ]
+#- [ wget, "http://ubuntu.com", -O, /run/mydir/index.html ]
